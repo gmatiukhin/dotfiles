@@ -1,0 +1,6 @@
+[submodule "i3/i3blocks/scripts"]
+	path = i3/i3blocks/scripts
+	url = https://github.com/gmatiukhin/i3blocks-contrib
+[submodule "nvim"]
+	path = nvim
+	url = https://github.com/gmatiukhin/nvim
