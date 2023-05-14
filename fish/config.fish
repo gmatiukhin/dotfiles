@@ -6,5 +6,6 @@ if status is-interactive
   abbr --add grep rg
   abbr --add find fd
   abbr --add cat bat
+  abbr --add dig dog
   abbr --add ssh "kitty +kitten ssh"
 end
