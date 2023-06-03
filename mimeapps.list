@@ -1,9 +1,13 @@
 [Default Applications]
 image/png=qView.desktop
-image/jpeg=qView.desktop
+image/jpeg=com.interversehq.qView.desktop
 image/gif=qView.desktop
 image/svg+xml=qView.desktop
 application/pdf=org.pwmt.zathura.desktop
 application/epub+zip=org.pwmt.zathura.desktop
 image/vnd.djvu+multipage=org.pwmt.zathura.desktop
 x-scheme-handler/msteams=teams.desktop
+
+[Added Associations]
+text/plain=com.interversehq.qView.desktop;
+image/jpeg=com.interversehq.qView.desktop;
