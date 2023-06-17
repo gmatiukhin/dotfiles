@@ -10,9 +10,9 @@ exec --no-startup-id dex --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id i3lock --nofork
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-exec --no-startup-id xautolock -locker "i3lock --nofork" -nowlocker "i3lock --nofork" -time 10
+exec --no-startup-id lock.sh
+exec --no-startup-id xss-lock --transfer-sleep-lock -- lock.sh
+exec --no-startup-id xautolock -locker lock.sh -nowlocker lock.sh -time 10
 exec --no-startup-id greenclip daemon
 exec --no-startup-id dunst
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
@@ -28,7 +28,7 @@ floating_modifier $mod
 #                            #
 ##############################
 
-# kills i3blocks bar for it to be restarted by i3wm to change Caps_Lock indicator
+# send SIGRTMIN signal to i3blocks to change Caps_Lock indicator
 bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
 
 # Use pactl to adjust volume in PulseAudio.
@@ -62,6 +62,7 @@ bindsym $mod+b exec firefox
 bindsym $mod+d exec --no-startup-id rofi -show combi -config $HOME/.config/rofi/config.rasi -theme $HOME/.config/rofi/theme.rasi
 bindsym $mod+v exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}' -theme $HOME/.config/rofi/theme.rasi
 bindsym Print exec --no-startup-id flameshot gui
+bindsym Shift+Print exec --no-startup-id flameshot screen
 
 ##############################
 #                            #
