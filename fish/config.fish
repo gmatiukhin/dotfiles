@@ -9,4 +9,5 @@ if status is-interactive
   abbr --add cat bat
   abbr --add dig dog
   abbr --add ssh "kitty +kitten ssh"
+  abbr --add nosleep "killall xautolock xss-lock"
 end
