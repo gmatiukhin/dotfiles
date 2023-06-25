@@ -1,0 +1,12 @@
+*
+
+!./.gitignore
+!./.gitmodules
+!./fish
+!./greenclip.toml
+!./i3
+!./kitty
+!./mimeapps.list
+!./neofetch
+!./nvim
+!./rofi
