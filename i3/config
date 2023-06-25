@@ -5,8 +5,7 @@ font pango:Fira Code Nerd Font 10
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
 
-# The combination of xss-lock, nm-applet and pactl is a popular choice, so
-# they are included here as an example. Modify as you see fit.
+# The combination of xss-lock, nm-applet and pactl is a popular choice, so they are included here as an example. Modify as you see fit.
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
@@ -249,4 +248,5 @@ bar {
                 inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
                 urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
         }
+        tray_output primary
 }
