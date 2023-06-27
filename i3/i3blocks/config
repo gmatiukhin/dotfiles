@@ -68,7 +68,6 @@ separator=false
 interval=5
 INLABEL= 
 OUTLABEL= 
-separator=false
 
 # [wifi]
 # INTERFACE=wlp1s0
@@ -78,6 +77,10 @@ separator=false
 [battery2]
 markup=pango
 interval=5
+
+[xkb_layout]
+interval=persist
+markup=pango
 
 [keyindicator]
 key=CAPS
@@ -91,10 +94,6 @@ signal=11
 # BG_COLOR_ON=
 # BG_COLOR_OFF=
 HIDE_WHEN_OFF=1
-
-[xkb_layout]
-interval=persist
-markup=pango
 
 [time]
 command=date '+%Y-%m-%d %H:%M:%S '
