@@ -46,7 +46,7 @@ bindsym Ctrl+Mod1+k exec --no-startup-id xkb-switch -n
 #                            #
 ##############################
 
-default_border pixel 0
+# default_border pixel 0
 gaps inner 10
 smart_gaps on
 

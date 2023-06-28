@@ -25,6 +25,11 @@ command=$I3BLOCKS_SCRIPT_DIR/$BLOCK_NAME/$BLOCK_NAME
 separator_block_width=15
 markup=none
 
+[i3-root-layout]
+# color=#00AA00
+interval=1
+markup=pango
+
 [volume-pulseaudio]
 interval=persist
 signal=1
