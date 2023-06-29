@@ -9,10 +9,10 @@ exec --no-startup-id dex --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-set $lock "i3lock --nofork --ignore-empty-password"
+set $lock $HOME/.config/i3/scripts/lock.sh
 exec --no-startup-id $lock
 # exec_always --no-startup-id xss-lock --transfer-sleep-lock -- $lock
-exec_always --no-startup-id xautolock -locker "systemctl suspend" -nowlocker $lock -time 10 -notify 300 -notifier $lock
+exec_always --no-startup-id xautolock -locker "systemctl suspend" -nowlocker $lock -time 10 -notify 150 -notifier $lock
 exec --no-startup-id greenclip daemon
 exec --no-startup-id dunst
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
