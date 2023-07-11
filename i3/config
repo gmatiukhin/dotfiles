@@ -42,16 +42,6 @@ bindsym Ctrl+Mod1+k exec --no-startup-id xkb-switch -n
 
 ##############################
 #                            #
-#            GAPS            #
-#                            #
-##############################
-
-# default_border pixel 0
-gaps inner 10
-smart_gaps on
-
-##############################
-#                            #
 #     PROGRAM  SHORTCUTS     #
 #                            #
 ##############################
@@ -221,9 +211,14 @@ mode "resize" {
 #                            #
 ##############################
 
-# thin borders
 hide_edge_borders smart
+smart_borders on 
+default_border pixel 3
+default_floating_border pixel 3
+gaps inner 10
+smart_gaps on
 # TODO: hide floating window borders
+
 
 set $active-bg-color     #2f4e60
 set $inactive-bg-color   #2a2e32 
