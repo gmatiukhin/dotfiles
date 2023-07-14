@@ -1,6 +1,6 @@
 configuration {
   modes: "combi";
-  combi-modes: "window,drun";
+  combi-modes: "drun";
   font: "FiraCode Nerd Font Regular 12";
 /*	location: 0;*/
 /*	yoffset: 0;*/
