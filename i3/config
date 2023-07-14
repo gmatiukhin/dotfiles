@@ -17,7 +17,7 @@ exec --no-startup-id greenclip daemon
 exec --no-startup-id dunst
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id nm-applet
-exec_always --no-startup-id volctl
+exec --no-startup-id volctl
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -48,10 +48,11 @@ bindsym Ctrl+Mod1+k exec --no-startup-id xkb-switch -n
 ##############################
 
 # start a terminal default = i3-sensible-terminal
-bindsym $mod+Return exec kitty 
+bindsym $mod+Return exec kitty
 bindsym $mod+b exec firefox
-bindsym $mod+d exec --no-startup-id rofi -show combi -config $HOME/.config/rofi/config.rasi -theme $HOME/.config/rofi/theme.rasi
-bindsym $mod+v exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}' -theme $HOME/.config/rofi/theme.rasi
+bindsym $mod+d exec --no-startup-id rofi -show drun -theme $HOME/.config/rofi/launcher/theme.rasi
+bindsym $mod+v exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}' -theme $HOME/.config/rofi/cliphistory/theme.rasi
+bindsym $mod+p exec --no-startup-id $HOME/.config/rofi/powermenu/powermenu.sh
 bindsym Print exec --no-startup-id flameshot gui
 bindsym Shift+Print exec --no-startup-id flameshot screen
 
@@ -213,7 +214,7 @@ mode "resize" {
 ##############################
 
 hide_edge_borders smart
-smart_borders on 
+smart_borders on
 default_border pixel 3
 default_floating_border pixel 3
 gaps inner 10
@@ -222,7 +223,7 @@ smart_gaps on
 
 
 set $active-bg-color     #2f4e60
-set $inactive-bg-color   #2a2e32 
+set $inactive-bg-color   #2a2e32
 set $text-color          #eff0f1
 set $inactive-text-color #bdc3c7
 set $urgent-bg-color     #da4453
@@ -238,7 +239,7 @@ bar {
         status_command I3BLOCKS_SCRIPT_DIR=$HOME/.config/i3/i3blocks/scripts i3blocks -c $HOME/.config/i3/i3blocks/config
         colors {
                 background $inactive-bg-color
-                separator #336e8d 
+                separator #336e8d
                 #                  border             background         text
                 focused_workspace  $active-bg-color   $active-bg-color   $text-color
                 inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
