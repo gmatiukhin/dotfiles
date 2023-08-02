@@ -53,26 +53,22 @@ label=
 interval=10
 
 [iface]
-INTERFACE=wlp1s0
-# color=#00FF00
 interval=5
 separator=false
 
 [pub-iface]
-# INTERFACE=wlp1s0
 color=#00FF00
 interval=5
 separator=false
 
-[bandwidth]
-interval=5
-INLABEL= 
-OUTLABEL= 
-
-# [wifi]
-# INTERFACE=wlp1s0
-# label= 
-# interval=10
+[bandwidth3]
+interval=persist
+markup=pango
+LABEL=<span font='FontAwesome'>  </span>
+#IFACE=[automatically determined]
+UNIT=Kb
+# Exposed variables: rx, wx, tx, unit, iface
+#PRINTF_COMMAND=printf "${LABEL}%-5.1f/%5.1f %s/s\n", rx, wx, unit;
 
 [battery2]
 markup=pango
