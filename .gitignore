@@ -1,14 +1,16 @@
 *
 
-!./.gitignore
-!./.gitmodules
+!*/
 
-!./greenclip.toml
-!./mimeapps.list
+!.gitignore
+!.gitmodules
 
-!./fish/**
-!./i3/**
-!./kitty/**
-!./neofetch/**
-!./nvim/**
-!./rofi/**
+!greenclip.toml
+
+!fish/*
+!fish/functions/*
+!i3/*
+!kitty/*
+!neofetch/*
+!nvim/*
+!rofi/*
