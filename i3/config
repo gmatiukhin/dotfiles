@@ -13,11 +13,14 @@ set $lock $HOME/.config/i3/scripts/lock.sh
 exec --no-startup-id $lock
 exec_always --no-startup-id xss-lock -- $lock
 # exec_always --no-startup-id xautolock -locker "systemctl suspend" -nowlocker $lock -time 10 -notify 300 -notifier $lock
-exec --no-startup-id greenclip daemon
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id dunst
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id greenclip daemon
+
 exec --no-startup-id nm-applet
-exec --no-startup-id volctl
+# wait for tray to load
+exec --no-startup-id sleep 10 && volctl
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -236,15 +239,15 @@ client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-co
 client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color #000099
 client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #000099
 
-bar {
-        status_command I3BLOCKS_SCRIPT_DIR=$HOME/.config/i3/i3blocks/scripts i3blocks -c $HOME/.config/i3/i3blocks/config
-        colors {
-                background $inactive-bg-color
-                separator #336e8d
-                #                  border             background         text
-                focused_workspace  $active-bg-color   $active-bg-color   $text-color
-                inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-                urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-        }
-        tray_output primary
-}
+# bar {
+#         status_command I3BLOCKS_SCRIPT_DIR=$HOME/.config/i3/i3blocks/scripts i3blocks -c $HOME/.config/i3/i3blocks/config
+#         colors {
+#                 background $inactive-bg-color
+#                 separator #336e8d
+#                 #                  border             background         text
+#                 focused_workspace  $active-bg-color   $active-bg-color   $text-color
+#                 inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+#                 urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+#         }
+#         tray_output primary
+# }

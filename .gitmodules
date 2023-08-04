@@ -4,3 +4,9 @@
 [submodule "nvim"]
 	path = nvim
 	url = https://github.com/gmatiukhin/nvim
+[submodule "polybar/polybar-scripts"]
+	path = polybar/polybar-scripts
+	url = https://github.com/polybar/polybar-scripts.git
+[submodule "polybar/scripts/polybar-speedtest"]
+	path = polybar/scripts/polybar-speedtest
+	url = https://github.com/haideralipunjabi/polybar-speedtest.git
