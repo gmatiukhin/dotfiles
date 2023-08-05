@@ -10,7 +10,7 @@
 !fish/*
 !fish/functions/*
 !i3/*
-!polybar/*
+!polybar/**
 !kitty/*
 !neofetch/*
 !nvim/*

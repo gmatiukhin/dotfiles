@@ -31,8 +31,8 @@ floating_modifier $mod
 #                            #
 ##############################
 
-# send SIGRTMIN signal to i3blocks to change Caps_Lock indicator
-bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
+# # send SIGRTMIN signal to i3blocks to change Caps_Lock indicator
+# bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -127,16 +127,16 @@ bindsym $mod+x kill
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1  "
-set $ws2 "2  "
+set $ws1 "1:"
+set $ws2 "2:"
 set $ws3 "3"
 set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
-set $ws7 "7  "
-set $ws8 "8  "
-set $ws9 "9  "
-set $ws10 "10  "
+set $ws7 "7:"
+set $ws8 "8:"
+set $ws9 "9:"
+set $ws10 "10:"
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
