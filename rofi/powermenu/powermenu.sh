@@ -9,8 +9,7 @@
 theme="$HOME/.config/rofi/powermenu/theme.rasi"
 
 # CMDs
-uptime="`uptime -p | sed -e 's/up //g'`"
-host=`hostname`
+uptime="`uptime -p | sed -e 's/up //g'`" host=`hostname`
 
 # Options
 shutdown=''
@@ -88,7 +87,7 @@ case ${chosen} in
     run_cmd --reboot
     ;;
   $lock)
-    $HOME/.config/i3/scripts/lock.sh
+    $HOME/.config/scripts/lock.sh
     ;;
   $suspend)
     run_cmd --suspend
