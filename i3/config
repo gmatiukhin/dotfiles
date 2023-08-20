@@ -20,6 +20,8 @@ exec --no-startup-id nm-applet
 # wait for tray to load
 exec --no-startup-id sleep 10 && volctl
 
+exec --no-startup-id xss-lock --transfer-sleep-lock $HOME/.config/scripts/lock.sh
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
