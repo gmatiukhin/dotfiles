@@ -16,7 +16,7 @@ configuration {
 }
 
 /*****----- Global Properties -----*****/
-@import "~/.config/rofi/colors/onedark.rasi"
+@import "~/.config/rofi/colors/tokyonight_night.rasi"
 * {
     font: "FiraCode Nerd Font Mono 10";
 }
@@ -35,7 +35,7 @@ window {
     margin:                      0px;
     padding:                     0px;
     border:                      0px solid;
-    border-radius:               0px;
+    border-radius:               20px;
     border-color:                @selected;
     background-color:            @background;
     cursor:                      "default";

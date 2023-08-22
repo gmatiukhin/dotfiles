@@ -10,10 +10,15 @@
 /*****----- Configuration -----*****/
 configuration {
     show-icons:                 false;
+    // "up" is left when horizontal
+    kb-row-up: "h";
+    // "down" is right when horizontal
+    kb-row-down: "l"; 
+    kb-accept-entry: "Return,space";
 }
 
 /*****----- Global Properties -----*****/
-@import "~/.config/rofi/colors/onedark.rasi"
+@import "~/.config/rofi/colors/tokyonight_night.rasi"
 * {
     font: "FiraCode Nerd Font Mono 12";
 }
@@ -38,7 +43,7 @@ window {
     margin:                      0px;
     padding:                     0px;
     border:                      0px solid;
-    border-radius:               0px;
+    border-radius:               20px;
     border-color:                @selected;
     cursor:                      "default";
     background-color:            @background;
@@ -152,7 +157,7 @@ element {
     margin:                      0px;
     padding:                     30px 10px;
     border:                      0px solid;
-    border-radius:               0px;
+    border-radius:               100%;
     border-color:                @selected;
     background-color:            @background-alt;
     text-color:                  @foreground;
