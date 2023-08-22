@@ -68,6 +68,7 @@ done
 kb=$(xkb-switch)
 xkb-switch -s us
 setxkbmap -option caps:none
+dunstctl set-pause true
 
 convert $HOME/.config/images/cory-billett-luthadel-bt2.jpg \
   -draw "fill #$box_shadow $shadows" \
@@ -113,5 +114,6 @@ convert $HOME/.config/images/cory-billett-luthadel-bt2.jpg \
     --pass-volume-keys \
     --pass-power-keys
 
-xkb-switch -s $kb
+dunstctl set-pause false
 setxkbmap -option
+xkb-switch -s $kb
