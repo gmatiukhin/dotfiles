@@ -6,7 +6,6 @@
 !.gitmodules
 
 !greenclip.toml
-
 !scripts/*
 !images/*
 !fish/*
@@ -18,3 +17,4 @@
 !nvim/*
 !rofi/*
 !dunst/*
+!picom/*
