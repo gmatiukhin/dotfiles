@@ -2,7 +2,6 @@
 
 radius=25
 ring=5
-
 inset=10
 
 # offsets from the bottom left corner, with (0, 0) at screen's top left
@@ -68,7 +67,8 @@ done
 kb=$(xkb-switch)
 xkb-switch -s us
 setxkbmap -option caps:none
-dunstctl set-pause true
+dunst_notif_status=$(dunstctl is-paused)
+dunstctl set-paused true
 
 convert $HOME/.config/images/cory-billett-luthadel-bt2.jpg \
   -draw "fill #$box_shadow $shadows" \
@@ -114,6 +114,6 @@ convert $HOME/.config/images/cory-billett-luthadel-bt2.jpg \
     --pass-volume-keys \
     --pass-power-keys
 
-dunstctl set-pause false
+dunstctl set-paused $dunst_notif_status
 setxkbmap -option
 xkb-switch -s $kb
