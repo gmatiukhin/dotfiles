@@ -15,6 +15,6 @@
 !kitty/*
 !neofetch/*
 !nvim/*
-!rofi/*
+!rofi/**
 !dunst/*
 !picom/*
