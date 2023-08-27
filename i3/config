@@ -91,8 +91,8 @@ bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # move between workspaces
-bindsym $mod+Mod1+l workspace next
-bindsym $mod+Mod1+h workspace prev
+bindsym $mod+period workspace next
+bindsym $mod+comma workspace prev
 
 # split line is horizontal
 bindsym $mod+Ctrl+h split v
