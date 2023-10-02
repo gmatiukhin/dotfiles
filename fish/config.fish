@@ -8,4 +8,6 @@ if status is-interactive
   abbr --add find fd
   abbr --add cat bat
   abbr --add dig dog
+  abbr --add ssh "kitty +kitten ssh"
+  abbr --add killjobs 'kill $(jobs -p)'
 end
