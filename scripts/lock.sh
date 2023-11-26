@@ -64,6 +64,10 @@ for res in $screen_resolution; do
   shadows+="rectangle $sx,$sy $((sx + box_width)),$((sy - box_height)) "
 done
 
+if [ $(xset -q | sed -n 's/^.*Caps Lock:\s*\(\S*\).*$/\1/p') = on ]; then
+  xdotool key Caps_Lock
+fi
+
 kb=$(xkb-switch)
 xkb-switch -s us
 setxkbmap -option caps:none
