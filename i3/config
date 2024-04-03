@@ -1,8 +1,9 @@
+exec --no-startup-id $lock
+
 set $mod Mod4
 font pango:Fira Code Nerd Font 10
 
 set $lock $HOME/.config/scripts/lock.sh
-exec --no-startup-id $lock
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
@@ -17,6 +18,7 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id dunst
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id greenclip daemon
+exec --no-startup-id bitwarden-desktop
 
 exec --no-startup-id nm-applet
 # wait for tray to load
