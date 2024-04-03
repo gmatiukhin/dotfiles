@@ -10,4 +10,5 @@ if status is-interactive
   abbr --add dig dog
   abbr --add ssh "kitty +kitten ssh"
   abbr --add killjobs 'kill $(jobs -p)'
+  export GPG_TTY=$(tty)
 end
