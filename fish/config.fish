@@ -1,4 +1,6 @@
 if status is-interactive
+  fish_vi_key_bindings
+
   fish_add_path $HOME/.cargo/bin # cargo
   fish_add_path $HOME/.local/bin # pip
   fish_add_path $HOME/go/bin # golang
