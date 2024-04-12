@@ -1,0 +1,31 @@
+(defvar workspaces '["1"]')
+
+(defvar active-workspace "1")
+
+(defwidget hypr-workspaces []
+  (box
+    (for entry in workspaces
+      (button :class {active-workspace == entry ? "ws-active" : "ws-inactive"}
+              :onclick "hyprctl dispatch workspace ${entry}"
+        entry))))
+
+(defpoll time :interval "1s"
+  `date +%H:%M:%S`)
+
+(defwidget time []
+   time)
+
+(defwindow example
+  :monitor 0
+  :geometry (geometry
+             :x "0%"
+             :y "0%"
+             :width "100%"
+             :height "30px"
+             :anchor "bottom center")
+  :stacking "bottom"
+  :exclusive true
+  :focusable false
+  (box
+   (hypr-workspaces)
+   (time)))
