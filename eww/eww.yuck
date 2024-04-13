@@ -1,20 +1,59 @@
+;; WORKSPACES
 (defvar workspaces '["1"]')
-
 (defvar active-workspace "1")
 
 (defwidget hypr-workspaces []
   (box
     (for entry in workspaces
       (button :class {active-workspace == entry ? "ws-active" : "ws-inactive"}
-              :onclick "hyprctl dispatch workspace ${entry}"
+              :onclick "hyprctl dispatch workspace ${entry} > /dev/null"
         entry))))
 
+;; NETWORK
+(defpoll local-ip :interval "5s"
+  "hostname -i")
+(defpoll public-ip :interval "60s"
+  "curl --silent https://myip.wtf/json")
+(defvar show-public-ip false)
+
+(defwidget ip []
+  (button
+    :class {show-public-ip ? "public-ip" : "local-ip"}
+    :onclick "eww update show-public-ip=${!show-public-ip}"
+    {show-public-ip
+      ? "${public-ip.YourFuckingIPAddress} ${public-ip.YourFuckingCountryCode}"
+      : local-ip}))
+
+(defwidget usage []
+  EWW_NET)
+ 
+
+;; KEYBOARD
+(defvar kb-model "keychron-keychron-q1v1-keyboard")
+(defvar kb-layout "English (US)")
+(defpoll is-caps :interval "0.2s"
+  "cat /sys/class/leds/input3::capslock/brightness")
+
+(defwidget kb []
+   (button :class {is-caps == "1" ? "capson" : "capsoff"}
+           :onclick "hyprctl switchxkblayout ${kb-model} next > /dev/null"
+           :onrightclick "hyprctl switchxkblayout ${kb-model} prev > /dev/null"
+    kb-layout))
+
+;; DATETIME
 (defpoll time :interval "1s"
-  `date +%H:%M:%S`)
+  "date +%H:%M:%S")
+
+(defpoll datetime :interval "1s"
+ 'date "+%Y-%m-%d %H:%M:%S"')
+
+(defvar showdate false)
 
 (defwidget time []
-   time)
+  (button :onclick "eww update showdate=${!showdate}"
+    {showdate ? datetime : time}))
 
+;; WINDOW
 (defwindow example
   :monitor 0
   :geometry (geometry
@@ -27,5 +66,7 @@
   :exclusive true
   :focusable false
   (box
-   (hypr-workspaces)
-   (time)))
+    (hypr-workspaces)
+    (ip)
+    (kb)
+    (time)))

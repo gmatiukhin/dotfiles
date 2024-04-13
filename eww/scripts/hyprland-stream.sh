@@ -9,15 +9,23 @@ function get_workspaces {
 eww update workspaces=$(get_workspaces)
 
 function handle {
-  command=$(echo $1 | awk -F'>>' '{print $1}')
-  value=$(echo $1 | awk -F'>>' '{print $2}')
+  echo $1
+  # %% prevents splitting in a wrong place if >> is in the window title
+  # https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion
+  command=${1%%>>*}
+  value=${1#*>>}
 
-  if [[ $command == "workspace" ]]; then
+  case $command in
+
+  "workspace")
     # set active workspace
     eww update active-workspace=$value
     # update open workspaces
     eww update workspaces=$(get_workspaces)
-  fi
+    ;;
+  "activelayout")
+    eww update kb-layout="${value#*,}"
+  esac
 }
 
 socat - "UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock" \
