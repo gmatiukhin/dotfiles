@@ -121,7 +121,7 @@
     (systray :halign "end")))
 
 ;; WINDOW
-(defwindow example
+(defwindow bar
   :monitor 0
   :geometry (geometry
              :x "0%"
