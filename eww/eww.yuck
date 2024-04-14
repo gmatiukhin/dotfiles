@@ -10,23 +10,40 @@
         entry))))
 
 ;; NETWORK
+(defwidget netinfo []
+  (box
+    (ip)
+    (net-usage)))
+
 (defpoll local-ip :interval "5s"
   "hostname -i")
 (defpoll public-ip :interval "60s"
+                   :initial '{"YourFuckingIPAddress": "...", "YourFuckingCountryCode": "..."}'
   "curl --silent https://myip.wtf/json")
 (defvar show-public-ip false)
 
 (defwidget ip []
-  (button
-    :class {show-public-ip ? "public-ip" : "local-ip"}
-    :onclick "eww update show-public-ip=${!show-public-ip}"
-    {show-public-ip
-      ? "${public-ip.YourFuckingIPAddress} ${public-ip.YourFuckingCountryCode}"
-      : local-ip}))
+  (button :onclick "eww update show-public-ip=${!show-public-ip}"
+    (stack :transition "slideup"
+           :selected {show-public-ip ? 1 : 0}
+           :same-size true
+        local-ip
+        "${public-ip.YourFuckingIPAddress} ${public-ip.YourFuckingCountryCode}")))
 
-(defwidget usage []
-  EWW_NET)
- 
+(defwidget net-usage []
+  (label :text " ${EWW_NET.enp28s0.NET_DOWN} /  ${EWW_NET.enp28s0.NET_UP}"))
+
+;; SYSINFO
+(defwidget sysinfo []
+  (box
+    (ram)
+    (cpu)))
+
+(defwidget ram []
+  (label :text "RAM ${round(EWW_RAM.used_mem_perc, 1)}%"))
+
+(defwidget cpu []
+  (label :text "CPU ${round(EWW_CPU.avg, 1)}"))
 
 ;; KEYBOARD
 (defvar kb-model "keychron-keychron-q1v1-keyboard")
@@ -43,15 +60,56 @@
 ;; DATETIME
 (defpoll time :interval "1s"
   "date +%H:%M:%S")
-
 (defpoll datetime :interval "1s"
  'date "+%Y-%m-%d %H:%M:%S"')
-
 (defvar showdate false)
 
 (defwidget time []
   (button :onclick "eww update showdate=${!showdate}"
-    {showdate ? datetime : time}))
+    (stack :transition "slideup"
+           :selected {showdate ? 1 : 0}
+           :same-size true
+      time
+      datetime)))
+
+;; VOLUME
+(defvar target "SINK")
+(defpoll sink-volume :interval "1s" :initial 0 "wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -d' ' -f 2")
+(defpoll source-volume :interval "1s" :initial 0 "wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | cut -d' ' -f 2")
+                       
+(defpoll sink-mute :interval "0.2s" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -d' ' -f 3")
+(defpoll source-mute :interval "0.2s" "wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | cut -d' ' -f 3")
+
+(defwidget volume []
+  (box :space-evenly false
+    (button :onclick "eww update target=${target == 'SINK' ? 'SOURCE' : 'SINK'}"
+            :onrightclick "wpctl set-mute @DEFAULT_AUDIO_${target}@ toggle"
+            :halign "start"
+      {target == "SINK"
+        ? (sink-mute == "[MUTED]" ? "" : "")
+        : (source-mute == "[MUTED]" ? "" : "")})
+    (scale :min 0.0
+           :max 101.0
+           :value {target == "SINK" ? sink-volume * 100 : source-volume * 100}
+           :onchange "wpctl set-volume @DEFAULT_AUDIO_${target}@ {}%"
+           ;; :halign "fill")))
+           :hexpand true)))
+
+;; SIDES
+(defwidget left []
+  (hypr-workspaces))
+
+(defwidget center []
+  (box
+    (netinfo)
+    (sysinfo)))
+
+(defwidget right []
+  (box
+    (kb)
+    (volume)
+    (time)))
+    ;; (systray :width "10")))
 
 ;; WINDOW
 (defwindow example
@@ -65,8 +123,7 @@
   :stacking "bottom"
   :exclusive true
   :focusable false
-  (box
-    (hypr-workspaces)
-    (ip)
-    (kb)
-    (time)))
+  (centerbox :orientation "horizontal"
+    (left)
+    (center)
+    (right)))
