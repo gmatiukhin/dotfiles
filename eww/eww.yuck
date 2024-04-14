@@ -24,6 +24,7 @@
 
 (defwidget ip []
   (button :onclick "eww update show-public-ip=${!show-public-ip}"
+          :class {show-public-ip ? "public-ip" : "local-ip"}
     (stack :transition "slideup"
            :selected {show-public-ip ? 1 : 0}
            :same-size true
@@ -31,7 +32,7 @@
         "${public-ip.YourFuckingIPAddress} ${public-ip.YourFuckingCountryCode}")))
 
 (defwidget net-usage []
-  (label :text " ${EWW_NET.enp28s0.NET_DOWN} /  ${EWW_NET.enp28s0.NET_UP}"))
+  (label :text "  ${EWW_NET.enp28s0.NET_DOWN} /   ${EWW_NET.enp28s0.NET_UP}"))
 
 ;; SYSINFO
 (defwidget sysinfo []
@@ -55,6 +56,7 @@
    (button :class {is-caps == "1" ? "capson" : "capsoff"}
            :onclick "hyprctl switchxkblayout ${kb-model} next > /dev/null"
            :onrightclick "hyprctl switchxkblayout ${kb-model} prev > /dev/null"
+           :width 100
     kb-layout))
 
 ;; DATETIME
@@ -82,34 +84,41 @@
 
 (defwidget volume []
   (box :space-evenly false
+       :hexpand false
+       :width 150
     (button :onclick "eww update target=${target == 'SINK' ? 'SOURCE' : 'SINK'}"
             :onrightclick "wpctl set-mute @DEFAULT_AUDIO_${target}@ toggle"
             :halign "start"
-      {target == "SINK"
-        ? (sink-mute == "[MUTED]" ? "" : "")
-        : (source-mute == "[MUTED]" ? "" : "")})
+      (stack :selected {target == "SINK" ? 0 : 1}
+             :transition "slideup"
+          {sink-mute == "[MUTED]" ? " " : " "}
+          {source-mute == "[MUTED]" ? " " : ""}))
     (scale :min 0.0
            :max 101.0
-           :value {target == "SINK" ? sink-volume * 100 : source-volume * 100}
-           :onchange "wpctl set-volume @DEFAULT_AUDIO_${target}@ {}%"
-           ;; :halign "fill")))
-           :hexpand true)))
+               :value {target == "SINK" ? sink-volume * 100 : source-volume * 100}
+               :onchange "wpctl set-volume @DEFAULT_AUDIO_${target}@ {}%"
+               :halign "fill"
+               :hexpand true)))
 
 ;; SIDES
 (defwidget left []
-  (hypr-workspaces))
+  (box :space-evenly true
+       :halign "start"
+    (hypr-workspaces)))
 
 (defwidget center []
-  (box
-    (netinfo)
-    (sysinfo)))
+  (box :halign "fill"
+       :hexpand true))
 
 (defwidget right []
-  (box
-    (kb)
+  (box :space-evenly false
+       :halign "end"
+    (netinfo)
+    (sysinfo)
     (volume)
-    (time)))
-    ;; (systray :width "10")))
+    (kb)
+    (time)
+    (systray :halign "end")))
 
 ;; WINDOW
 (defwindow example
