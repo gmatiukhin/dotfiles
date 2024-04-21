@@ -2,7 +2,7 @@
 
 
 function get_workspaces {
-  echo "$(hyprctl workspaces -j | jq -c '[. | sort_by(.id) | .[] | .name]')"
+  echo "$(hyprctl workspaces -j  | jq -c '[sort_by(.id).[].name] | map(select(. | test("^[0-9]+$")))')"
 }
 
 # call once at startup to load workspaces with default open windows
@@ -28,6 +28,14 @@ function handle {
     ;;
   "movewindow")
     eww update workspaces=$(get_workspaces)
+    ;;
+  "activespecial")
+    eww update has-special=true
+    ;;
+  "destroyworkspace")
+    if [[ "$value" == "special:magic" ]]; then
+      eww update has-special=false
+    fi
     ;;
   esac
 }

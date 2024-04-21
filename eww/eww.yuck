@@ -1,9 +1,11 @@
 ;; WORKSPACES
 (defvar workspaces '["1"]')
+(defvar has-special false)
 (defvar active-workspace "1")
 
 (defwidget hypr-workspaces []
   (box
+    (label :text "S" :visible has-special)
     (for entry in workspaces
       (button :class {active-workspace == entry ? "ws-active" : "ws-inactive"}
               :onclick "hyprctl dispatch workspace ${entry} > /dev/null"
