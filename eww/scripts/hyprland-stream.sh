@@ -25,6 +25,10 @@ function handle {
     ;;
   "activelayout")
     eww update kb-layout="${value#*,}"
+    ;;
+  "movewindow")
+    eww update workspaces=$(get_workspaces)
+    ;;
   esac
 }
 
