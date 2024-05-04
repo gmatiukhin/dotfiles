@@ -52,7 +52,7 @@
 (defvar kb-model "keychron-keychron-q1v1-keyboard")
 (defvar kb-layout "English (US)")
 (defpoll is-caps :interval "0.2s"
-  "cat /sys/class/leds/input3::capslock/brightness")
+  "cat /sys/class/leds/input21::capslock/brightness")
 
 (defwidget kb []
    (button :class {is-caps == "1" ? "capson" : "capsoff"}
@@ -77,30 +77,52 @@
       datetime)))
 
 ;; VOLUME
-(defvar target "SINK")
+;; (defvar target "SINK")
 (defpoll sink-volume :interval "1s" :initial 0 "wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -d' ' -f 2")
-(defpoll source-volume :interval "1s" :initial 0 "wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | cut -d' ' -f 2")
+;; (defpoll source-volume :interval "1s" :initial 0 "wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | cut -d' ' -f 2")
                        
 (defpoll sink-mute :interval "0.2s" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -d' ' -f 3")
-(defpoll source-mute :interval "0.2s" "wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | cut -d' ' -f 3")
+;; (defpoll source-mute :interval "0.2s" "wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | cut -d' ' -f 3")
 
+;; (defwidget volume []
+;;   (box :space-evenly false
+;;        :hexpand false
+;;        :width 150
+;;     (button :onclick "eww update target=${target == 'SINK' ? 'SOURCE' : 'SINK'}"
+;;             :onrightclick "wpctl set-mute @DEFAULT_AUDIO_${target}@ toggle"
+;;             :halign "start"
+;;       (stack :selected {target == "SINK" ? 0 : 1}
+;;              :transition "slideup"
+;;           {sink-mute == "[MUTED]" ? " " : " "}
+;;           {source-mute == "[MUTED]" ? " " : ""}))
+;;     (scale :min 0.0
+;;            :max 101.0
+;;                :value {target == "SINK" ? sink-volume * 100 : source-volume * 100}
+;;                :onchange "wpctl set-volume @DEFAULT_AUDIO_${target}@ {}%"
+;;                :halign "fill"
+;;                :hexpand true)))
+
+(defvar show-vol-bar false)
 (defwidget volume []
-  (box :space-evenly false
-       :hexpand false
-       :width 150
-    (button :onclick "eww update target=${target == 'SINK' ? 'SOURCE' : 'SINK'}"
-            :onrightclick "wpctl set-mute @DEFAULT_AUDIO_${target}@ toggle"
-            :halign "start"
-      (stack :selected {target == "SINK" ? 0 : 1}
-             :transition "slideup"
-          {sink-mute == "[MUTED]" ? " " : " "}
-          {source-mute == "[MUTED]" ? " " : ""}))
-    (scale :min 0.0
-           :max 101.0
-               :value {target == "SINK" ? sink-volume * 100 : source-volume * 100}
-               :onchange "wpctl set-volume @DEFAULT_AUDIO_${target}@ {}%"
-               :halign "fill"
-               :hexpand true)))
+  (eventbox :onhover "eww update show-vol-bar=true"
+    :onhoverlost "eww update show-vol-bar=false"
+    (box
+      :space-evenly false
+      :spacing 2
+      (revealer :transition "slideleft"
+        :reveal {show-vol-bar && !show-pavu}
+        :duration "300ms"
+        (scale :value {sink-volume * 100}
+          :width 100
+          :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%"
+          :orientation "h"
+          :flipped false
+          :min 0
+          :max 101))
+      (button
+        :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        :onrightclick "hyprctl dispatch exec '[float; size 30% 50%; move 65% 45%] pavucontrol'"
+        {sink-mute == "[MUTED]" ? " " : " "}))))
 
 ;; SIDES
 (defwidget left []
