@@ -110,7 +110,7 @@
       :space-evenly false
       :spacing 2
       (revealer :transition "slideleft"
-        :reveal {show-vol-bar && !show-pavu}
+        :reveal show-vol-bar
         :duration "300ms"
         (scale :value {sink-volume * 100}
           :width 100
