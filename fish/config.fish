@@ -10,6 +10,8 @@ if status is-interactive
   abbr --add find fd
   abbr --add cat bat
   abbr --add dig dog
+  abbr --add ls lsd
+  abbr --add ll "lsd -l"
   abbr --add ssh "kitty +kitten ssh"
   abbr --add killjobs 'kill $(jobs -p)'
   export GPG_TTY=$(tty)
