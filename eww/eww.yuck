@@ -18,7 +18,7 @@
     (net-usage)))
 
 (defpoll local-ip :interval "5s"
-  "ip r | rg 'default' | awk '{ print $NF, $3 }' | sort | tail -n 1 | cut -d' ' -f 2")
+  "ip r | rg 'default' | awk '{ print $NF, $(NF-2) }' | sort | tail -n 1 | cut -d' ' -f 2")
 (defpoll public-ip :interval "60s"
                    :initial '{"YourFuckingIPAddress": "...", "YourFuckingCountryCode": "..."}'
   "curl --silent https://myip.wtf/json")
