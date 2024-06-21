@@ -18,10 +18,13 @@
     (net-usage)))
 
 (defpoll local-ip :interval "5s"
-  "ip r | rg 'default' | awk '{ print $NF, $(NF-2) }' | sort | tail -n 1 | cut -d' ' -f 2")
+  "ip r | grep -E 'default.*(enp|eth)' | awk '{ print $NF, $(NF-2) }' | sort | tail -n 1 | cut -d' ' -f 2")
+;; (defpoll public-ip :interval "60s"
+;;                    :initial '{"YourFuckingIPAddress": "...", "YourFuckingCountryCode": "..."}'
+;;   "curl --silent https://myip.wtf/json")
 (defpoll public-ip :interval "60s"
-                   :initial '{"YourFuckingIPAddress": "...", "YourFuckingCountryCode": "..."}'
-  "curl --silent https://myip.wtf/json")
+                   :initial '...'
+  "curl --silent icanhazip.com")
 (defvar show-public-ip false)
 
 (defwidget ip []
@@ -31,7 +34,8 @@
            :selected {show-public-ip ? 1 : 0}
            :same-size true
         local-ip
-        "${public-ip.YourFuckingIPAddress} ${public-ip.YourFuckingCountryCode}")))
+        ;; "${public-ip.YourFuckingIPAddress} ${public-ip.YourFuckingCountryCode}")))
+        public-ip)))
 
 (defwidget net-usage []
   (label :text "  ${EWW_NET.enp28s0.NET_DOWN} /   ${EWW_NET.enp28s0.NET_UP}"))
@@ -54,18 +58,30 @@
 (defpoll is-caps :interval "0.2s"
   "cat /sys/class/leds/input21::capslock/brightness")
 
-(defwidget kb []
+(defwidget layout []
    (button :class {is-caps == "1" ? "capson" : "capsoff"}
            :onclick "hyprctl switchxkblayout ${kb-model} next > /dev/null"
            :onrightclick "hyprctl switchxkblayout ${kb-model} prev > /dev/null"
            :width 100
     kb-layout))
 
+(defpoll ibus-engine :interval "0.1s" "ibus engine")
+(defwidget jp [] "Aち")
+
+(defwidget kb []
+ (box
+   :space-evenly false
+   (layout)
+   (revealer :transition "slideright"
+     :reveal {ibus-engine == "mozc-on" ? true : false}
+     (jp))))
+
+
 ;; DATETIME
 (defpoll time :interval "1s"
   "date +%H:%M:%S")
 (defpoll datetime :interval "1s"
- 'date "+%Y-%m-%d %H:%M:%S"')
+  'date "+%Y-%m-%d %H:%M:%S"')
 (defvar showdate false)
 
 (defwidget time []
@@ -77,30 +93,14 @@
       datetime)))
 
 ;; VOLUME
-;; (defvar target "SINK")
-(defpoll sink-volume :interval "1s" :initial 0 "wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -d' ' -f 2")
-;; (defpoll source-volume :interval "1s" :initial 0 "wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | cut -d' ' -f 2")
+(defpoll sink-volume
+  :interval "1s"
+  :initial 0
+  "wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -d' ' -f 2")
                        
-(defpoll sink-mute :interval "0.2s" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -d' ' -f 3")
-;; (defpoll source-mute :interval "0.2s" "wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | cut -d' ' -f 3")
-
-;; (defwidget volume []
-;;   (box :space-evenly false
-;;        :hexpand false
-;;        :width 150
-;;     (button :onclick "eww update target=${target == 'SINK' ? 'SOURCE' : 'SINK'}"
-;;             :onrightclick "wpctl set-mute @DEFAULT_AUDIO_${target}@ toggle"
-;;             :halign "start"
-;;       (stack :selected {target == "SINK" ? 0 : 1}
-;;              :transition "slideup"
-;;           {sink-mute == "[MUTED]" ? " " : " "}
-;;           {source-mute == "[MUTED]" ? " " : ""}))
-;;     (scale :min 0.0
-;;            :max 101.0
-;;                :value {target == "SINK" ? sink-volume * 100 : source-volume * 100}
-;;                :onchange "wpctl set-volume @DEFAULT_AUDIO_${target}@ {}%"
-;;                :halign "fill"
-;;                :hexpand true)))
+(defpoll sink-mute
+  :interval "0.2s"
+  "wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -d' ' -f 3")
 
 (defvar show-vol-bar false)
 (defwidget volume []
