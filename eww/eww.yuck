@@ -53,28 +53,28 @@
   (label :text "CPU ${round(EWW_CPU.avg, 1)}"))
 
 ;; KEYBOARD
-(defvar kb-model "keychron-keychron-q1v1-keyboard")
+(defvar kb-model "hl-virtual-keyboard")
 (defvar kb-layout "English (US)")
-(defpoll is-caps :interval "0.2s"
-  "cat /sys/class/leds/input21::capslock/brightness")
+;; (defpoll is-caps :interval "0.2s"
+;;   "cat /sys/class/leds/input21::capslock/brightness")
 
 (defwidget layout []
-   (button :class {is-caps == "1" ? "capson" : "capsoff"}
+   (button :class {"capsoff"}
            :onclick "hyprctl switchxkblayout ${kb-model} next > /dev/null"
            :onrightclick "hyprctl switchxkblayout ${kb-model} prev > /dev/null"
            :width 100
     kb-layout))
 
-(defpoll ibus-engine :interval "0.1s" "ibus engine")
-(defwidget jp [] "Aち")
+;; (defwidget jp [] "Aち")
+;; (defpoll ibus-engine :interval "0.1s" "fcitx5-remote -n")
 
 (defwidget kb []
  (box
    :space-evenly false
-   (layout)
-   (revealer :transition "slideright"
-     :reveal {ibus-engine == "mozc-on" ? true : false}
-     (jp))))
+   (layout)))
+   ;; (revealer :transition "slideright"
+   ;;   :reveal {ibus-engine == "mozc" ? true : false}
+   ;;   (jp))))
 
 
 ;; DATETIME
