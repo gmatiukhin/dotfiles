@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-
 function get_workspaces {
-  echo "$(hyprctl workspaces -j  | jq -c '[sort_by(.id).[].name] | map(select(. | test("^[0-9]+$")))')"
+  echo "$(hyprctl workspaces -j | jq -c '[sort_by(.id).[].name | {id: ., name: .} | select(.id == "special:magic").name |= "S"]')"
 }
 
 # call once at startup to load workspaces with default open windows
 eww update workspaces=$(get_workspaces)
+last_workspace=$(eww get active-workspace)
 
 function handle {
   echo $1
@@ -22,6 +22,16 @@ function handle {
     eww update active-workspace=$value
     # update open workspaces
     eww update workspaces=$(get_workspaces)
+
+    last_workspace=$(eww get active-workspace)
+    ;;
+  "activespecial")
+    ws="${value%%,*}"
+    [ -z "$ws" ] && ws=$last_workspace
+    # set active workspace
+    # eww update active-workspace=$ws
+    # update open workspaces
+    eww update workspaces=$(get_workspaces)
     ;;
   "activelayout")
     eww update kb-layout="${value#*,}"
@@ -29,16 +39,14 @@ function handle {
   "movewindow")
     eww update workspaces=$(get_workspaces)
     ;;
-  "activespecial")
-    eww update has-special=true
-    ;;
   "destroyworkspace")
-    if [[ "$value" == "special:magic" ]]; then
-      eww update has-special=false
-    fi
+    # update open workspaces
+    eww update workspaces=$(get_workspaces)
     ;;
   esac
 }
 
-socat - "UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock" \
-  | while read -r line; do handle "$line"; done
+touch ~/hyprstream.log
+
+socat - "UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock" |
+  while read -r line; do handle "$line"; done

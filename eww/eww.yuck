@@ -1,19 +1,27 @@
 ;; WORKSPACES
-(defvar workspaces '["1"]')
-(defvar has-special false)
+(defvar workspaces '[{"id": "1", "name": "1"}]')
 (defvar active-workspace "1")
 
 (defwidget hypr-workspaces []
   (box
-    (label :text "S" :visible has-special)
     (for entry in workspaces
-      (button :class {active-workspace == entry ? "ws-active" : "ws-inactive"}
-              :onclick "hyprctl dispatch workspace ${entry} > /dev/null"
-        entry))))
+      (button :class {entry.id == "special:magic" ? "special" : active-workspace == entry.id ? "ws-active" : "ws-inactive"}
+              :onclick "hyprctl dispatch workspace ${jq(entry, ".id")} > /dev/null"
+        "${entry.name}"))))
+
+(defwidget info []
+  (box
+    :space-evenly false
+    :spacing 10
+    (ip)
+    (net-usage)
+    (ram)
+    (cpu)))
 
 ;; NETWORK
 (defwidget netinfo []
   (box
+    :space-evenly false
     (ip)
     (net-usage)))
 
@@ -38,7 +46,7 @@
         public-ip)))
 
 (defwidget net-usage []
-  (label :text "  ${EWW_NET.enp28s0.NET_DOWN} /   ${EWW_NET.enp28s0.NET_UP}"))
+  (label :text "  ${round(EWW_NET.enp28s0.NET_DOWN / 1024, 2)} /   ${round(EWW_NET.enp28s0.NET_UP / 1024, 2)}"))
 
 ;; SYSINFO
 (defwidget sysinfo []
@@ -53,7 +61,7 @@
   (label :text "CPU ${round(EWW_CPU.avg, 1)}"))
 
 ;; KEYBOARD
-(defvar kb-model "hl-virtual-keyboard")
+(defvar kb-model "keychron-keychron-q1v1-keyboard")
 (defvar kb-layout "English (US)")
 ;; (defpoll is-caps :interval "0.2s"
 ;;   "cat /sys/class/leds/input21::capslock/brightness")
@@ -137,12 +145,11 @@
 (defwidget right []
   (box :space-evenly false
        :halign "end"
-    (netinfo)
-    (sysinfo)
+    (info)
     (volume)
     (kb)
     (time)
-    (systray :halign "end")))
+    (systray :halign "end" :spacing 1 :prepend-new true)))
 
 ;; WINDOW
 (defwindow bar
