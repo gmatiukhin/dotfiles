@@ -34,7 +34,12 @@ function handle {
     eww update workspaces=$(get_workspaces)
     ;;
   "activelayout")
-    eww update kb-layout="${value#*,}"
+    kb=${value%%,*}
+    layout=${value#*,}
+    # Ignore hl-virtual-keyboard as it switches to default on window focus change
+    if [ "$kb" != "hl-virtual-keyboard" ]; then
+      eww update kb-layout="$layout"
+    fi
     ;;
   "movewindow")
     eww update workspaces=$(get_workspaces)
