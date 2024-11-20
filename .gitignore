@@ -2,19 +2,26 @@
 
 !*/
 
+!mimeapps.list
+
 !.gitignore
 !.gitmodules
 
-!greenclip.toml
 !scripts/*
 !images/*
-!fish/*
-!fish/functions/*
-!i3/*
-!polybar/**
+!fish/**/*
+fish/completions
 !kitty/*
 !neofetch/*
 !nvim/*
-!rofi/**
-!dunst/*
-!picom/*
+!fcitx5/*
+fcitx5/conf/cached_layouts
+!Kvantum/*
+!eww/*
+!mako/*
+!nwg-look/*
+!qt5ct/qt5ct.conf
+!qt6ct/qt6ct.conf
+!systemd/**
+!lsd/*
+!zathura/*
