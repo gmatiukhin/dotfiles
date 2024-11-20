@@ -48,6 +48,12 @@ function handle {
     # update open workspaces
     eww update workspaces=$(get_workspaces)
     ;;
+  "monitorremoved")
+    if [ "$value" == "FALLBACK" ]; then
+      eww open bar
+    fi
+    ;;
+
   esac
 }
 
