@@ -1,0 +1,12 @@
+[Unit]
+Description=Shadowsocks Proxy Service
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/bin/bash %h/shadowsocks/up.sh
+ExecStop=/bin/bash %h/shadowsocks/down.sh
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
