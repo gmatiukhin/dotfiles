@@ -15,18 +15,16 @@ EnumerateSkipFirst=False
 EnumerateGroupForwardKeys=
 # Enumerate Input Method Group Backward
 EnumerateGroupBackwardKeys=
+# Activate Input Method
+ActivateKeys=
+# Deactivate Input Method
+DeactivateKeys=
 # Default Previous page
 PrevPage=
 # Default Next page
 NextPage=
 # Toggle embedded preedit
 TogglePreedit=
-
-[Hotkey/ActivateKeys]
-0=Control+braceright
-
-[Hotkey/DeactivateKeys]
-0=Control+braceright
 
 [Hotkey/PrevCandidate]
 0=Shift+Tab
