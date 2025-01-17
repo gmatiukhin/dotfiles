@@ -28,3 +28,4 @@ fcitx5/conf/cached_layouts
 !gitconfig
 !gtk-*/**
 !greetd/**
+!bacon/**
