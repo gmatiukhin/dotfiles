@@ -18,3 +18,4 @@ if status is-interactive
 end
 
 set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin $PATH /home/gmatiukhin/.ghcup/bin # ghcup-env
+set -gx JAVA_HOME $(java -XshowSettings:properties -version 2>&1 > /dev/null | grep 'java.home' | xargs | cut -d " " -f 3)
