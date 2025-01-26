@@ -16,7 +16,7 @@ ln -sf $CONF/gtk-2.0/gtkrc-2.0 /etc/gtk-2.0/gtkrc
 ln -sf $CONF/gtk-3.0/settings.ini /etc/gtk-3.0/settings.ini
 
 echo "Configuring GIT"
-ln -sf $CONF/gitconfig $HOME/.gitconfig
+ln -sf $CONF/gitconfig/$HOSTNAME $HOME/.gitconfig
 
 echo "Configuring greetd"
 ln -sf $CONF/greetd/config.toml /etc/greetd/config.toml
