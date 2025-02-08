@@ -13,17 +13,11 @@
   (box
     :space-evenly false
     :spacing 10
-    (ip)
+    (box)
     (net-usage)
     (ram)
-    (cpu)))
-
-;; NETWORK
-(defwidget netinfo []
-  (box
-    :space-evenly false
-    (ip)
-    (net-usage)))
+    (cpu)
+    (box)))
 
 (defpoll local-ip :interval "5s"
   "ip r | grep -E 'default.*(enp|eth)' | awk '{ print $NF, $(NF-2) }' | sort | tail -n 1 | cut -d' ' -f 2")
@@ -145,6 +139,7 @@
 (defwidget right []
   (box :space-evenly false
        :halign "end"
+    (ip)
     (info)
     (volume)
     (kb)
