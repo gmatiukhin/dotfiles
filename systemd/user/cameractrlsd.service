@@ -3,7 +3,7 @@ Description=CameraCtrls daemon - restore control values
 
 [Service]
 Type=simple
-ExecStart=/usr/lib/python3.12/site-packages/CameraCtrls/cameractrlsd.py
+ExecStart=/usr/bin/cameractrlsd
 
 [Install]
 WantedBy=graphical-session.target
