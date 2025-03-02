@@ -30,3 +30,4 @@ fcitx5/conf/cached_layouts
 !greetd/**
 !bacon/**
 !gitconfig/**
+!kanshi/**
