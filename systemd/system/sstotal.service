@@ -1,0 +1,12 @@
+[Unit]
+Description=Shadowsocks Proxy Service (Systemwide)
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/bin/bash /home/gmatiukhin/shadowsocks/tunup.sh
+ExecStop=/bin/bash /home/gmatiukhin/shadowsocks/tundown.sh
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

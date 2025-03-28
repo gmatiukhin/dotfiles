@@ -20,3 +20,7 @@ ln -sf $CONF/gitconfig/$HOSTNAME $HOME/.gitconfig
 
 echo "Configuring greetd"
 ln -sf $CONF/greetd/config.toml /etc/greetd/config.toml
+
+echo "Configuring systemd"
+ln -sf $CONF/systemd/system/sstotal.service /etc/systemd/system/sstotal.service
+systemctl daemon-reload
