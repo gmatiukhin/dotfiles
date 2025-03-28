@@ -39,8 +39,11 @@
         ;; "${public-ip.YourFuckingIPAddress} ${public-ip.YourFuckingCountryCode}")))
         public-ip)))
 
+(deflisten hostname `hostnamectl hostname`)
+
 (defwidget net-usage []
-  (label :text "  ${round(EWW_NET.enp28s0.NET_DOWN / 1024, 2)} /   ${round(EWW_NET.enp28s0.NET_UP / 1024, 2)}"))
+  (label :text "  ${round(EWW_NET[hostname == "Mercury" ? "enp28s0" : "wlp1s0"].NET_DOWN / 1024, 2)} /"
+    + "  ${round( EWW_NET[hostname == "Mercury" ? "enp28s0" : "wlp1s0"].NET_UP / 1024, 2)}"))
 
 ;; SYSINFO
 (defwidget sysinfo []
@@ -55,15 +58,16 @@
   (label :text "CPU ${round(EWW_CPU.avg, 1)}"))
 
 ;; KEYBOARD
-(defvar kb-model "keychron-keychron-q1v1-keyboard")
+(defvar mercury-kb "keychron-keychron-q1v1-keyboard")
+(defvar ganymede-kb "at-translated-set-2-keyboard")
 (defvar kb-layout "English (US)")
 ;; (defpoll is-caps :interval "0.2s"
 ;;   "cat /sys/class/leds/input21::capslock/brightness")
 
 (defwidget layout []
    (button :class {"capsoff"}
-           :onclick "hyprctl switchxkblayout ${kb-model} next > /dev/null"
-           :onrightclick "hyprctl switchxkblayout ${kb-model} prev > /dev/null"
+           :onclick "hyprctl switchxkblayout ${hostname == "Mercury" ? mercury-kb : ganymede-kb} next > /dev/null"
+           :onrightclick "hyprctl switchxkblayout ${hostname == "Mercury" ? mercury-kb : ganymede-kb} prev > /dev/null"
            :width 100
     kb-layout))
 
