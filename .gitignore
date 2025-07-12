@@ -31,3 +31,4 @@ fcitx5/conf/cached_layouts
 !bacon/**
 !gitconfig/**
 !kanshi/**
+!code-flags.conf
