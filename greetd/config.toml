@@ -1,9 +1,8 @@
 [terminal]
 # The VT to run the greeter on. Can be "next", "current" or a number
 # designating the VT.
-# Runnig on VT 3, so that systemd-boot's boot log doesn't cover the greeter
-# This problem may only exist for agreety and similar terminal login managers
-vt = 3
+# need "console=tty1" in kernel parameters
+vt = "next"
 
 # The default session, also known as the greeter.
 [default_session]
