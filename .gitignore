@@ -27,6 +27,7 @@ fcitx5/conf/cached_layouts
 !zathura/*
 !gitconfig
 !gtk-*/**
+gtk-2.0/gtkfilechooser.ini
 !greetd/**
 !bacon/**
 !gitconfig/**
