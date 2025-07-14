@@ -43,9 +43,9 @@
 
 (defwidget net-usage []
   (label :text {
-    "  ${round(EWW_NET[hostname == "Mercury" ? "enp28s0" : "wlp1s0"].NET_DOWN / 1024, 2)}"
+    "  ${round(EWW_NET[hostname == "Mercury" ? "enp13s0" : "wlp1s0"].NET_DOWN / 1024, 2)}"
     + " / " 
-    + "${round(EWW_NET[hostname == "Mercury" ? "enp28s0" : "wlp1s0"].NET_UP / 1024, 2)} "}))
+    + "${round(EWW_NET[hostname == "Mercury" ? "enp13s0" : "wlp1s0"].NET_UP / 1024, 2)} "}))
 
 ;; SYSINFO
 (defwidget sysinfo []
