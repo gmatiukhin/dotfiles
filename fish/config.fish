@@ -14,6 +14,7 @@ if status is-interactive
   abbr --add ll "lsd -l"
   abbr --add ssh "kitty +kitten ssh"
   abbr --add killjobs 'kill $(jobs -p)'
+  abbr --add rm "rm -I"
   export GPG_TTY=$(tty)
 end
 
