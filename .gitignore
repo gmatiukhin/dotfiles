@@ -8,6 +8,7 @@
 !.gitmodules
 
 !scripts/**
+scripts/shadowsocks
 !images/**
 !fish/**
 fish/completions
@@ -20,8 +21,6 @@ fcitx5/conf/cached_layouts
 !eww/**
 !mako/**
 !nwg-look/**
-!qt5ct/**
-!qt6ct/**
 !systemd/**
 !lsd/*
 !zathura/*
@@ -33,3 +32,5 @@ gtk-2.0/gtkfilechooser.ini
 !gitconfig/**
 !kanshi/**
 !code-flags.conf
+!qt5ct/qt5ct.conf.example
+!qt6ct/qt6ct.conf.example
