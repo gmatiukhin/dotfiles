@@ -34,3 +34,4 @@ gtk-2.0/gtkfilechooser.ini
 !code-flags.conf
 !qt5ct/qt5ct.conf.example
 !qt6ct/qt6ct.conf.example
+!upmpdcli/**
