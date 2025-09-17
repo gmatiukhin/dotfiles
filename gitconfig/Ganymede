@@ -1,7 +1,7 @@
 [user]
 	email = contact@gmatiukhin.site
 	name = Grigorii Matiukhin
-	signingKey = EB2E65909215C9FE
+	signingkey = 6317B31CF5AC1295088E5398CF379C050EE25383
 [credential "https://github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
