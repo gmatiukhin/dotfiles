@@ -1,0 +1,84 @@
+directory: /home/gmatiukhin/Music/collection/
+library: /home/gmatiukhin/Music/beets.db
+import:
+  move: yes
+  write: yes
+  autotag: yes
+  bell: yes
+art_filename: cover
+threaded: yes
+original_date: yes
+per_disc_numbering: no
+# pluginpath: ~/Projects/beets/fetchartist/beetsplug
+
+match:
+  preffered:
+    countries: ["JP"]
+  # ignore_video_tracks: no
+
+plugins:
+  - musicbrainz
+  - fish
+  - lyrics
+  - fetchart
+  - embedart
+  - lastgenre
+  - replaygain
+  - duplicates
+  - info
+  - importreplace
+  - edit
+  - mbsync
+  - missing
+  # - fetchartist
+  - fromfilename
+
+muzicbrainz:
+  host: musicbrainz.org
+  ratelimit: 1
+  ratelimit_interval: 2.0
+
+lyrics:
+  auto: yes
+  dist_thresh: 0.11
+  fallback: null
+  force: yes
+  # google_API_key: null
+  # google_engine_ID: 009217259823014548361:lndtuqkycfu
+  print: no
+  sources: [lrclib, genius]
+  synced: yes
+
+fetchart:
+  auto: yes
+
+fetchartist:
+  filename: "artist"
+
+embedart:
+  auto: no
+  remove_art_file: no
+
+lastgenre:
+  auto: yes
+  canonical: yes
+  force: yes
+  prefer_specific: no
+  source: album
+
+replaygain:
+  auto: yes
+  backend: gstreamer
+  overwrite: yes
+# importreplace:
+#   replacements:
+#     - item_fields: title artist artist_sort artist_credit
+#       album_fields: album artist artist_sort artist_credit
+#       replace:
+#         '[\u2018-\u201B]': "'"
+#         '[\u201C-\u201F]': '"'
+#         '[\u2010-\u2015]': "-"
+#     - item_fields: artist artist_sort artist_credit
+#       album_fields: artist artist_sort artist_credit
+#       replace:
+#         " & ": ";"
