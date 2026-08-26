@@ -35,6 +35,9 @@ application/x-extension-shtml=firefox.desktop
 application/xhtml+xml=firefox.desktop
 application/x-extension-xhtml=firefox.desktop
 application/x-extension-xht=firefox.desktop
+x-scheme-handler/nxm=vortex-steamtinkerlaunch-dl.desktop
+x-scheme-handler/nxm-protocol=vortex-steamtinkerlaunch-dl.desktop
+x-scheme-handler/net.thunderbird=userapp-Thunderbird-IGHGU3.desktop
 
 [Added Associations]
 x-scheme-handler/mailto=userapp-Thunderbird-OO53L2.desktop;
@@ -57,3 +60,4 @@ application/x-extension-shtml=firefox.desktop;
 application/xhtml+xml=firefox.desktop;
 application/x-extension-xhtml=firefox.desktop;
 application/x-extension-xht=firefox.desktop;
+x-scheme-handler/net.thunderbird=userapp-Thunderbird-IGHGU3.desktop;
