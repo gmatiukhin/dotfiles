@@ -18,5 +18,20 @@ if status is-interactive
   export GPG_TTY=$(tty)
 end
 
-set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin $PATH /home/gmatiukhin/.ghcup/bin # ghcup-env
 set -gx JAVA_HOME $(java -XshowSettings:properties -version 2>&1 > /dev/null | grep 'java.home' | xargs | cut -d " " -f 3)
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+if test -f /opt/miniconda3/bin/conda
+    eval /opt/miniconda3/bin/conda "shell.fish" "hook" $argv | source
+else
+    if test -f "/opt/miniconda3/etc/fish/conf.d/conda.fish"
+        . "/opt/miniconda3/etc/fish/conf.d/conda.fish"
+    else
+        set -x PATH "/opt/miniconda3/bin" $PATH
+    end
+end
+# <<< conda initialize <<<
+
+
+set -q KREW_ROOT; and set -gx PATH $PATH $KREW_ROOT/.krew/bin; or set -gx PATH $PATH $HOME/.krew/bin
