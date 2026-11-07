@@ -6,7 +6,7 @@
   (box
     (for entry in workspaces
       (button :class {entry.id == "special:magic" ? "special" : active-workspace == entry.id ? "ws-active" : "ws-inactive"}
-              :onclick "hyprctl dispatch workspace ${jq(entry, ".id")} > /dev/null"
+              :onclick `hyprctl dispatch 'hl.dsp.focus({ workspace = "${entry.id}" })' > /dev/null`
         "${entry.name}"))))
 
 (defwidget info []
@@ -129,7 +129,7 @@
           :max 101))
       (button
         :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        :onrightclick "hyprctl dispatch exec '[float; size 30% 50%; move 65% 45%] pavucontrol'"
+        :onrightclick `hyprctl dispatch 'hl.dsp.exec_cmd("pavucontrol", { float = true, size = "monitor_w*0.3 monitor_h*0.5", move = "monitor_w*0.65 monitor_h*0.45" })'`
         {sink-mute == "[MUTED]" ? " " : " "}))))
 
 ;; SIDES
